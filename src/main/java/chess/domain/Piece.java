@@ -1,11 +1,176 @@
 package chess.domain;
 
-import chess.domain.rule.Empty;
-import chess.domain.rule.Pawn;
-
 import java.util.Objects;
 
-public class Piece {
+public abstract class Piece {
+    private final Type type;
+    private final Color color;
+    private Position position;
+
+    public Piece(final Type type, final Color color, final Position position) {
+        this.type = type;
+        this.color = color;
+        this.position = position;
+    }
+
+    public boolean isValidMove(final Position other) {
+        return false;
+    }
+
+    public boolean isValidAttack(final Piece other) {
+        return !isSameColor(other.color) && isValidAttack(other.position);
+    }
+
+    protected boolean isValidAttack(final Position other) {
+        return isValidMove(other);
+    }
+
+    public double getScore() {
+        return this.type.score;
+    }
+
+    public String getName() {
+        return this.type.name;
+    }
+
+    public boolean isSameType(Type other) {
+        return this.type == other;
+    }
+
+    public boolean isWhite() {
+        return this.color == Color.WHITE;
+    }
+
+    public boolean isBlack() {
+        return this.color == Color.BLACK;
+    }
+
+    public boolean isSameColor(Color other) {
+        return this.color == other;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    //
+//    static Piece empty(final Position position) {
+//        return new Piece(position, Color.EMPTY, Empty.getInstance());
+//    }
+//
+//    boolean isValidAttack(final Piece other) {
+//        return !isSameColor(other) && rule.isValidAttack(this.position, other.position);
+//    }
+//
+//    private boolean isSameColor(final Piece other) {
+//        return this.color == other.color;
+//    }
+//
+//    boolean isSameColor(final Color other) {
+//        return color == other;
+//    }
+//
+    boolean isSameColumn(final Column other) {
+        return this.position.isSameColumn(other);
+    }
+
+    //
+//    public boolean isValidMove(final Piece other) {
+//        return rule.isValidMove(this.position, other.position);
+//    }
+//
+//    boolean isEmpty() {
+//        return Color.EMPTY == color;
+//    }
+//
+//    boolean isPawn() {
+//        return this.rule.isSameType(Rule.Type.PAWN);
+//    }
+//
+//    boolean isKing() {
+//        return this.rule.isSameType(Rule.Type.KING);
+//    }
+//
+//    boolean isSameType(final Rule.Type other) {
+//        return rule.isSameType(other);
+//    }
+//
+//    Piece get(final Position position) {
+//        Rule rule = this.rule;
+//        rule = getSecondPawnIfFirst(rule);
+//        return Piece.of(position, this.color, rule);
+//    }
+//
+//    private Rule getSecondPawnIfFirst(Rule rule) {
+//        if (this.rule == Pawn.FIRST_BOTTOM) {
+//            rule = Pawn.SECOND_BOTTOM;
+//        }
+//        if (this.rule == Pawn.FIRST_TOP) {
+//            rule = Pawn.SECOND_TOP;
+//        }
+//        return rule;
+//    }
+//
+//    double getScore() {
+//        return rule.getScore();
+//    }
+//
+    public String getSymbol() {
+        return PieceSymbol.getSymbol(this);
+    }
+//
+//    public Position getPosition() {
+//        return position;
+//    }
+
+    public boolean isEmpty() {
+        return this.type == Type.EMPTY;
+    }
+
+    public boolean isKing() {
+        return this.type == Type.KING;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final Piece piece = (Piece) o;
+        return type == piece.type &&
+                color == piece.color &&
+                Objects.equals(position, piece.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, color, position);
+    }
+
+    @Override
+    public String toString() {
+        return "Piece{" +
+                "type=" + type +
+                ", color=" + color +
+                ", position=" + position +
+                '}';
+    }
+
+    public boolean isPawn() {
+        return this.type == Type.PAWN;
+    }
+
+    public void move(final Position position) {
+        this.position = position;
+    }
+
     public enum Color {
         WHITE("WHITE"),
         BLACK("BLACK"),
@@ -22,110 +187,21 @@ public class Piece {
         }
     }
 
-    private final Position position;
-    private final Color color;
+    public enum Type {
+        PAWN("Pawn", 1),
+        QUEEN("Queen", 9),
+        ROOK("Rook", 5),
+        KNIGHT("Knight", 2.5),
+        KING("King", 0),
+        EMPTY("Empty", 0),
+        BISHOP("Bishop", 3);
 
-    private final Rule rule;
+        private final String name;
+        private final double score;
 
-    public Piece(final Position position, final Color color, final Rule rule) {
-        this.position = position;
-        this.color = color;
-        this.rule = rule;
-    }
-
-    public static Piece of(final Position position, final Color color, final Rule rule) {
-        return new Piece(position, color, rule);
-    }
-
-    static Piece empty(final Position position) {
-        return new Piece(position, Color.EMPTY, Empty.getInstance());
-    }
-
-    boolean isValidAttack(final Piece other) {
-        return !isSameColor(other) && rule.isValidAttack(this.position, other.position);
-    }
-
-    private boolean isSameColor(final Piece other) {
-        return this.color == other.color;
-    }
-
-    boolean isSameColor(final Color other) {
-        return color == other;
-    }
-
-    boolean isSameColumn(final Column other) {
-        return this.position.isSameColumn(other);
-    }
-
-    public boolean isValidMove(final Piece other) {
-        return rule.isValidMove(this.position, other.position);
-    }
-
-    boolean isEmpty() {
-        return Color.EMPTY == color;
-    }
-
-    boolean isPawn() {
-        return this.rule.isSameType(Rule.Type.PAWN);
-    }
-
-    boolean isKing() {
-        return this.rule.isSameType(Rule.Type.KING);
-    }
-
-    boolean isSameType(final Rule.Type other) {
-        return rule.isSameType(other);
-    }
-
-    Piece get(final Position position) {
-        Rule rule = this.rule;
-        rule = getSecondPawnIfFirst(rule);
-        return Piece.of(position, this.color, rule);
-    }
-
-    private Rule getSecondPawnIfFirst(Rule rule) {
-        if (this.rule == Pawn.FIRST_BOTTOM) {
-            rule = Pawn.SECOND_BOTTOM;
+        Type(final String name, final double score) {
+            this.name = name;
+            this.score = score;
         }
-        if (this.rule == Pawn.FIRST_TOP) {
-            rule = Pawn.SECOND_TOP;
-        }
-        return rule;
-    }
-
-    double getScore() {
-        return rule.getScore();
-    }
-
-    public String getSymbol() {
-        return PieceSymbol.getSymbol(this);
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Piece piece = (Piece) o;
-        return Objects.equals(position, piece.position) &&
-                color == piece.color &&
-                Objects.equals(rule, piece.rule);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(position, color, rule);
-    }
-
-    @Override
-    public String toString() {
-        return "Piece{" +
-                "position=" + position +
-                ", color=" + color +
-                ", rule=" + rule +
-                '}';
     }
 }

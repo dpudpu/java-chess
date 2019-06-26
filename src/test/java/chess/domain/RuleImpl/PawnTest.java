@@ -1,300 +1,229 @@
 package chess.domain.RuleImpl;
 
+import chess.domain.Piece;
 import chess.domain.Position;
 import chess.domain.rule.Pawn;
+import chess.domain.rule.Rook;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PawnTest {
-    @Test
-    public void FIRST_BOTTOM_Pawn_한칸_이동() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
+    Pawn firstWhitePawn;
+    Pawn firstBlackPawn;
+    Pawn secondWhitePawn;
+    Pawn secondBlackPawn;
 
-        Position origin = Position.of("2", "h");
-        Position target = Position.of("3", "h");
+    @BeforeEach
+    void setUp() {
+        firstWhitePawn = Pawn.createWhite(Position.of("2", "g"));
+        firstBlackPawn = Pawn.createBlack(Position.of("7", "g"));
 
-        assertTrue(pawn.isValidMove(origin, target));
+        secondWhitePawn = Pawn.createWhite(Position.of("3", "g"));
+        secondBlackPawn = Pawn.createBlack(Position.of("6", "g"));
     }
 
     @Test
-    public void FIRST_BOTTOM_Pawn_두칸_이동() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
+    public void FIRST_WHITE_Pawn_한칸_이동() {
+        Position other = Position.of("3", "g");
 
-        Position origin = Position.of("2", "h");
-        Position target = Position.of("4", "h");
-
-        assertTrue(pawn.isValidMove(origin, target));
+        assertTrue(firstWhitePawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_BOTTOM_Pawn_뒤_이동_불가능() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
+    public void FIRST_WHITE_Pawn_두칸_이동() {
+        Position other = Position.of("4", "g");
 
-        Position origin = Position.of("2", "h");
-        Position target = Position.of("1", "h");
-
-        assertFalse(pawn.isValidMove(origin, target));
+        assertTrue(firstWhitePawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_BOTTOM_Pawn_세칸_이동_불가능() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
+    public void FIRST_WHITE_Pawn_뒤_이동_불가능() {
+        Position other = Position.of("1", "g");
 
-        Position origin = Position.of("2", "h");
-        Position target = Position.of("5", "h");
-
-        assertFalse(pawn.isValidMove(origin, target));
+        assertFalse(firstWhitePawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn__한칸_이동() {
-        Pawn pawn = Pawn.FIRST_TOP;
+    public void FIRST_WHITE_Pawn_세칸_이동_불가능() {
+        Position other = Position.of("5", "g");
 
-        Position origin = Position.of("7", "a");
-        Position target = Position.of("6", "a");
-
-        assertTrue(pawn.isValidMove(origin, target));
+        assertFalse(firstWhitePawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn__두칸_이동() {
-        Pawn pawn = Pawn.FIRST_TOP;
+    public void FIRST_BLACK_Pawn__한칸_이동() {
+        Position other = Position.of("6", "g");
 
-        Position origin = Position.of("7", "a");
-        Position target = Position.of("5", "a");
-
-        assertTrue(pawn.isValidMove(origin, target));
+        assertTrue(firstBlackPawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn_뒤로_이동_불가능() {
-        Pawn pawn = Pawn.FIRST_TOP;
+    public void FIRST_BLACK_Pawn__두칸_이동() {
+        Position other = Position.of("5", "g");
 
-        Position origin = Position.of("7", "a");
-        Position target = Position.of("8", "a");
-
-        assertFalse(pawn.isValidMove(origin, target));
+        assertTrue(firstBlackPawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn_세칸_이동_불가능() {
-        Pawn pawn = Pawn.FIRST_TOP;
+    public void FIRST_BLACK_Pawn_뒤로_이동_불가능() {
+        Position other = Position.of("8", "g");
 
-        Position origin = Position.of("7", "a");
-        Position target = Position.of("4", "a");
-
-        assertFalse(pawn.isValidMove(origin, target));
+        assertFalse(firstBlackPawn.isValidMove(other));
     }
 
     @Test
-    public void SECOND_TOP_Pawn_한칸_이동() {
-        Pawn pawn = Pawn.SECOND_TOP;
+    public void FIRST_BLACK_Pawn_세칸_이동_불가능() {
+        Position other = Position.of("4", "g");
 
-        Position origin = Position.of("6", "a");
-        Position target = Position.of("5", "a");
-
-        assertTrue(pawn.isValidMove(origin, target));
+        assertFalse(firstBlackPawn.isValidMove(other));
     }
 
     @Test
-    public void SECOND_TOP_Pawn_두칸_이동_불가능() {
-        Pawn pawn = Pawn.SECOND_TOP;
+    public void SECOND_BLACK_Pawn_한칸_이동() {
+        Position other = Position.of("5", "g");
 
-        Position origin = Position.of("6", "a");
-        Position target = Position.of("4", "a");
-
-        assertFalse(pawn.isValidMove(origin, target));
+        assertTrue(firstBlackPawn.isValidMove(other));
     }
 
     @Test
-    public void SECOND_BOTTOM_Pawn_한칸_이동_가능() {
-        Pawn pawn = Pawn.SECOND_BOTTOM;
+    public void SECOND_BLACK_Pawn_두칸_이동_불가능() {
+        Position other = Position.of("4", "g");
 
-        Position origin = Position.of("3", "c");
-        Position target = Position.of("4", "c");
-
-        assertTrue(pawn.isValidMove(origin, target));
+        assertFalse(firstBlackPawn.isValidMove(other));
     }
 
     @Test
-    public void SECOND_BOTTOM_Pawn_두칸_이동_불가능() {
-        Pawn pawn = Pawn.SECOND_BOTTOM;
+    public void SECOND_WHITE_Pawn_한칸_이동_가능() {
+        Position other = Position.of("4", "g");
 
-        Position origin = Position.of("3", "c");
-        Position target = Position.of("5", "c");
-
-        assertFalse(pawn.isValidMove(origin, target));
+        assertTrue(secondWhitePawn.isValidMove(other));
     }
 
     @Test
-    public void SECOND_BOTTOM_Pawn_뒤로_이동_불가능() {
-        Pawn pawn = Pawn.SECOND_BOTTOM;
+    public void SECOND_WHITE_Pawn_두칸_이동_불가능() {
+        Position other = Position.of("5", "g");
 
-        Position origin = Position.of("3", "c");
-        Position target = Position.of("2", "c");
-
-        assertFalse(pawn.isValidMove(origin, target));
+        assertFalse(secondWhitePawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_BOTTOM_Pawn_공격_왼쪽_대각선_가능() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
+    public void SECOND_WHITE_Pawn_뒤로_이동_불가능() {
+        Position other = Position.of("2", "g");
 
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("3", "f");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+        assertFalse(firstBlackPawn.isValidMove(other));
     }
 
     @Test
-    public void FIRST_BOTTOM_Pawn_공격_오른쪽_대각선_가능() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
-
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("3", "h");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+    public void FIRST_WHITE_Pawn_공격_왼쪽_대각선_가능() {
+        Piece other = Rook.createBlack(Position.of("3", "f"));
+        assertTrue(firstWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void FIRST_BOTTOM_Pawn_공격_뒤_오른쪽_대각선_불가능() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
-
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("1", "h");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    public void FIRST_WHITE_Pawn_공격_오른쪽_대각선_가능() {
+        Position position = Position.of("3", "h");
+        Piece other = Rook.createBlack(position);
+        assertTrue(firstWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void FIRST_BOTTOM_Pawn_공격_뒤_왼쪽_대각선_불가능() {
-        Pawn pawn = Pawn.FIRST_BOTTOM;
-
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("1", "f");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    public void FIRST_WHITE_Pawn_공격_뒤_오른쪽_대각선_불가능() {
+        Position position = Position.of("1", "h");
+        Piece other = Rook.createBlack(position);
+        assertFalse(firstWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn_공격_왼쪽_대각선() {
-        Pawn pawn = Pawn.FIRST_TOP;
-
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("6", "a");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+    public void FIRST_WHITE_Pawn_공격_뒤_왼쪽_대각선_불가능() {
+        Position position = Position.of("1", "f");
+        Piece other = Rook.createBlack(position);
+        assertFalse(firstWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn_공격_오른쪽_대각선() {
-        Pawn pawn = Pawn.FIRST_TOP;
-
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("6", "c");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+    public void FIRST_BLACK_Pawn_공격_왼쪽_대각선() {
+        Position position = Position.of("6", "f");
+        Piece other = Rook.createWhite(position);
+        assertTrue(firstBlackPawn.isValidAttack(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn_공격_뒤_오른쪽_불가능() {
-        Pawn pawn = Pawn.FIRST_TOP;
-
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("8", "c");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    public void FIRST_BLACK_Pawn_공격_오른쪽_대각선() {
+        Position position = Position.of("6", "h");
+        Piece other = Rook.createWhite(position);
+        assertTrue(firstBlackPawn.isValidAttack(other));
     }
 
     @Test
-    public void FIRST_TOP_Pawn_공격_뒤_왼쪽_불가능() {
-        Pawn pawn = Pawn.FIRST_TOP;
-
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("8", "a");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    public void FIRST_BLACK_Pawn_공격_뒤_오른쪽_불가능() {
+        Position position = Position.of("8", "h");
+        Piece other = Rook.createWhite(position);
+        assertFalse(firstBlackPawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_BOTTOM_Pawn_공격_오른쪽_대각선() {
-        Pawn pawn = Pawn.SECOND_BOTTOM;
-
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("3", "h");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+    public void FIRST_BLACK_Pawn_공격_뒤_왼쪽_불가능() {
+        Position position = Position.of("8", "f");
+        Piece other = Rook.createWhite(position);
+        assertFalse(firstBlackPawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_BOTTOM_Pawn_공격_왼쪽_대각선() {
-        Pawn pawn = Pawn.SECOND_BOTTOM;
-
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("3", "f");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+    public void SECOND_WHITE_Pawn_공격_오른쪽_대각선() {
+        Position position = Position.of("4", "h");
+        Piece other = Rook.createBlack(position);
+        assertTrue(secondWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_BOTTOM_Pawn_공격_뒤_왼쪽_대각선_불가능() {
-        Pawn pawn = Pawn.SECOND_BOTTOM;
-
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("1", "f");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    public void SECOND_WHITE_Pawn_공격_왼쪽_대각선() {
+        Position position = Position.of("4", "f");
+        Piece other = Rook.createBlack(position);
+        assertTrue(secondWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_BOTTOM_Pawn_공격_뒤_오른쪽_대각선_불가능() {
-        Pawn pawn = Pawn.SECOND_BOTTOM;
-
-        Position origin = Position.of("2", "g");
-        Position target = Position.of("1", "h");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    public void SECOND_WHITE_Pawn_공격_뒤_왼쪽_대각선_불가능() {
+        Position position = Position.of("2", "f");
+        Piece other = Rook.createBlack(position);
+        assertFalse(secondWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_TOP_Pawn_공격_오른쪽_대각선_가능() {
-        Pawn pawn = Pawn.SECOND_TOP;
-
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("6", "c");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+    public void SECOND_WHITE_Pawn_공격_뒤_오른쪽_대각선_불가능() {
+        Position position = Position.of("2", "h");
+        Piece other = Rook.createBlack(position);
+        assertFalse(secondWhitePawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_TOP_Pawn_공격_왼쪽_대각선_가능() {
-        Pawn pawn = Pawn.SECOND_TOP;
-
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("6", "a");
-
-        assertTrue(pawn.isValidAttack(origin, target));
+    public void SECOND_BLACK_Pawn_공격_오른쪽_대각선_가능() {
+        Position position = Position.of("5", "h");
+        Piece other = Rook.createWhite(position);
+        assertTrue(secondBlackPawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_TOP_Pawn_공격_뒤_왼쪽_불가능() {
-        Pawn pawn = Pawn.SECOND_TOP;
-
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("8", "a");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    public void SECOND_BLACK_Pawn_공격_왼쪽_대각선_가능() {
+        Position position = Position.of("5", "f");
+        Piece other = Rook.createWhite(position);
+        assertTrue(secondBlackPawn.isValidAttack(other));
     }
 
     @Test
-    public void SECOND_TOP_Pawn_공격_뒤_오른쪽_불가능() {
-        Pawn pawn = Pawn.SECOND_TOP;
+    public void SECOND_BLACK_Pawn_공격_뒤_왼쪽_불가능() {
+        Position position = Position.of("8", "f");
+        Piece other = Rook.createWhite(position);
+        assertFalse(secondBlackPawn.isValidAttack(other));
+    }
 
-        Position origin = Position.of("7", "b");
-        Position target = Position.of("8", "c");
-
-        assertFalse(pawn.isValidAttack(origin, target));
+    @Test
+    public void SECOND_BLACK_Pawn_공격_뒤_오른쪽_불가능() {
+        Position position = Position.of("8", "h");
+        Piece other = Rook.createWhite(position);
+        assertFalse(secondBlackPawn.isValidAttack(other));
     }
 }

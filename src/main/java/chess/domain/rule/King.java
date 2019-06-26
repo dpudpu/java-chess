@@ -1,29 +1,33 @@
 package chess.domain.rule;
 
+import chess.domain.Piece;
 import chess.domain.Position;
-import chess.domain.Rule;
 
-public class King extends Rule {
-    private static King INSTANCE = new King();
+public class King extends Piece {
 
-    private King() {
-        super(Type.KING);
+    private King(final Color color, final Position position) {
+        super(Type.KING, color, position);
     }
 
-    public static King getInstance() {
-        return INSTANCE;
+    public static King createWhite(final Position position) {
+        return new King(Color.WHITE, position);
+    }
+
+    public static King createBlack(final Position position) {
+        return new King(Color.BLACK, position);
     }
 
     @Override
-    public boolean isValidMove(final Position origin, final Position target) {
-        return isLengthOne(origin, target) || isLengthTwo(origin, target);
+    public boolean isValidMove(final Position other) {
+        return isLengthOne(other) || isLengthTwo(other);
     }
 
-    private boolean isLengthOne(final Position origin, final Position target) {
-        return origin.isMoveAnyWhereSum(target, 1);
+    private boolean isLengthOne(final Position other) {
+        return this.getPosition().isMoveAnyWhereSum(other, 1);
     }
 
-    private boolean isLengthTwo(final Position origin, final Position target) {
-        return origin.isMoveAnyWhereSum(target, 2) && origin.isMoveAnyWhereSub(target, 0);
+    private boolean isLengthTwo(final Position other) {
+        return this.getPosition().isMoveAnyWhereSum(other, 2)
+                && this.getPosition().isMoveAnyWhereSub(other, 0);
     }
 }

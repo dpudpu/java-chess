@@ -1,5 +1,6 @@
 package chess.domain;
 
+import chess.domain.rule.Empty;
 import chess.domain.rule.Rook;
 import org.junit.jupiter.api.Test;
 
@@ -8,28 +9,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PieceSymbolTest {
     @Test
     void Symbol_리턴_테스트() {
-        Rule rule = Rook.getInstance();
-        Piece.Color color = Piece.Color.WHITE;
         Position position = Position.of("1", "a");
+        Piece rook = Rook.createWhite(position);
 
+        String expected = PieceSymbol.getSymbol(rook);
         String actual = PieceSymbol.WHITE_ROOK.getSymbol();
-
-        Piece piece = Piece.of(position, color, rule);
-        String expected = PieceSymbol.getSymbol(piece);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void Symbol_EMPTY_리턴_테스트() {
-        Rule rule = Rook.getInstance();
-        Piece.Color color = Piece.Color.EMPTY;
         Position position = Position.of("1", "a");
+        Piece piece = Empty.create(position);
 
-        String actual = PieceSymbol.EMPTY_SYMBOL;
-
-        Piece piece = Piece.of(position, color, rule);
         String expected = PieceSymbol.getSymbol(piece);
+        String actual = PieceSymbol.EMPTY_SYMBOL;
 
         assertEquals(expected, actual);
     }

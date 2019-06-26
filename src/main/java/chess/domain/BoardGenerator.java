@@ -32,21 +32,20 @@ public class BoardGenerator {
 
     private static void initBlackPieces(final Map<Position, Piece> map, final int rowIndex) {
         List<Position> positions = getColumns(rowIndex);
-        map.put(positions.get(0), Piece.of(positions.get(0), Piece.Color.BLACK, Rook.getInstance()));
-        map.put(positions.get(1), Piece.of(positions.get(1), Piece.Color.BLACK, Knight.getInstance()));
-        map.put(positions.get(2), Piece.of(positions.get(2), Piece.Color.BLACK, Bishop.getInstance()));
-        map.put(positions.get(3), Piece.of(positions.get(3), Piece.Color.BLACK, Queen.getInstance()));
-        map.put(positions.get(4), Piece.of(positions.get(4), Piece.Color.BLACK, King.getInstance()));
-        map.put(positions.get(5), Piece.of(positions.get(5), Piece.Color.BLACK, Bishop.getInstance()));
-        map.put(positions.get(6), Piece.of(positions.get(6), Piece.Color.BLACK, Knight.getInstance()));
-        map.put(positions.get(7), Piece.of(positions.get(7), Piece.Color.BLACK, Rook.getInstance()));
-
+        map.put(positions.get(0), Rook.createBlack(positions.get(0)));
+        map.put(positions.get(1), Knight.createBlack(positions.get(1)));
+        map.put(positions.get(2), Bishop.createBlack(positions.get(2)));
+        map.put(positions.get(3), Queen.createBlack(positions.get(3)));
+        map.put(positions.get(4), King.createBlack(positions.get(4)));
+        map.put(positions.get(5), Bishop.createBlack(positions.get(5)));
+        map.put(positions.get(6), Knight.createBlack(positions.get(6)));
+        map.put(positions.get(7), Rook.createBlack(positions.get(7)));
     }
 
     private static void initBlackPawns(final Map<Position, Piece> map, final int rowIndex) {
         List<Position> positions = getColumns(rowIndex);
         for (Position position : positions) {
-            map.put(position, Piece.of(position, Piece.Color.BLACK, Pawn.FIRST_TOP));
+            map.put(position, Pawn.createBlack(position));
         }
     }
 
@@ -54,7 +53,7 @@ public class BoardGenerator {
         for (int i = starIndex; i >= endIndex; i--) {
             final List<Position> positions = getColumns(i);
             for (Position position : positions) {
-                map.put(position, Piece.of(position, Piece.Color.EMPTY, Empty.getInstance()));
+                map.put(position, Empty.create(position));
             }
         }
     }
@@ -62,20 +61,20 @@ public class BoardGenerator {
     private static void initWhitePawns(final Map<Position, Piece> map, final int rowIndex) {
         List<Position> positions = getColumns(rowIndex);
         for (Position position : positions) {
-            map.put(position, Piece.of(position, Piece.Color.WHITE, Pawn.FIRST_BOTTOM));
+            map.put(position, Pawn.createWhite(position));
         }
     }
 
     private static void initWhitePieces(final Map<Position, Piece> map, final int rowIndex) {
         List<Position> positions = getColumns(rowIndex);
-        map.put(positions.get(0), Piece.of(positions.get(0), Piece.Color.WHITE, Rook.getInstance()));
-        map.put(positions.get(1), Piece.of(positions.get(1), Piece.Color.WHITE, Knight.getInstance()));
-        map.put(positions.get(2), Piece.of(positions.get(2), Piece.Color.WHITE, Bishop.getInstance()));
-        map.put(positions.get(3), Piece.of(positions.get(3), Piece.Color.WHITE, Queen.getInstance()));
-        map.put(positions.get(4), Piece.of(positions.get(4), Piece.Color.WHITE, King.getInstance()));
-        map.put(positions.get(5), Piece.of(positions.get(5), Piece.Color.WHITE, Bishop.getInstance()));
-        map.put(positions.get(6), Piece.of(positions.get(6), Piece.Color.WHITE, Knight.getInstance()));
-        map.put(positions.get(7), Piece.of(positions.get(7), Piece.Color.WHITE, Rook.getInstance()));
+        map.put(positions.get(0), Rook.createWhite(positions.get(0)));
+        map.put(positions.get(1), Knight.createWhite(positions.get(1)));
+        map.put(positions.get(2), Bishop.createWhite(positions.get(2)));
+        map.put(positions.get(3), Queen.createWhite(positions.get(3)));
+        map.put(positions.get(4), King.createWhite(positions.get(4)));
+        map.put(positions.get(5), Bishop.createWhite(positions.get(5)));
+        map.put(positions.get(6), Knight.createWhite(positions.get(6)));
+        map.put(positions.get(7), Rook.createWhite(positions.get(7)));
     }
 
     private static List<Position> getColumns(final int rowIndex) {

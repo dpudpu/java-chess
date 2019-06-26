@@ -1,5 +1,6 @@
 package chess.domain;
 
+import chess.domain.rule.Empty;
 import chess.exception.DiedKingException;
 
 import java.util.*;
@@ -30,6 +31,7 @@ public class Board {
     }
 
     private boolean attack(final Piece origin, final Piece target) {
+        // todo 같은팀 확인
         if (!origin.isValidAttack(target)) {
             return false;
         }
@@ -41,7 +43,7 @@ public class Board {
     }
 
     private boolean move(final Piece origin, final Piece target) {
-        if (origin.isValidMove(target)) {
+        if (origin.isValidMove(target.getPosition())) {
             chanePiece(origin, target);
             return true;
         }
@@ -49,8 +51,9 @@ public class Board {
     }
 
     private void chanePiece(final Piece origin, final Piece target) {
-        map.put(target.getPosition(), origin.get(target.getPosition()));
-        map.put(origin.getPosition(), Piece.empty(origin.getPosition()));
+        map.put(origin.getPosition(), Empty.create(origin.getPosition()));
+        origin.move(target.getPosition());
+        map.put(target.getPosition(), origin);
     }
 
     private boolean hasObstacle(final Position origin, final Position target) {

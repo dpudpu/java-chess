@@ -18,8 +18,8 @@ public class RoomService {
         return roomDao.getLatestId().orElseThrow(SQLException::new);
     }
 
-    public void updateStatus(final long roomId,final String status, final String color) {
-        roomDao.updateStatus(roomId, status,color);
+    public void updateStatus(final long roomId, final String status, final String color) {
+        roomDao.updateStatus(roomId, status, color);
     }
 
     public List<RoomDto> findAllByStatus(final String status) {

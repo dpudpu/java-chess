@@ -70,6 +70,10 @@ public class Position implements Comparable<Position> {
         return this.column.equals(other);
     }
 
+    public boolean isSameRow(final Row other) {
+        return this.row.equals(other);
+    }
+
     private int subRowAndColumn(final Position target) {
         return Math.abs(this.distanceOfRow(target) - this.distanceOfColumn(target));
     }

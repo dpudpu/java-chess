@@ -1,21 +1,23 @@
 package chess.domain.rule;
 
+import chess.domain.Piece;
 import chess.domain.Position;
-import chess.domain.Rule;
 
-public class Rook extends Rule {
-    private static Rook INSTANCE = new Rook();
-
-    private Rook() {
-        super(Type.ROOK);
+public class Rook extends Piece {
+    private Rook(final Color color, final Position position) {
+        super(Type.ROOK, color, position);
     }
 
-    public static Rook getInstance() {
-        return INSTANCE;
+    public static Rook createWhite(final Position position) {
+        return new Rook(Color.WHITE, position);
+    }
+
+    public static Rook createBlack(final Position position) {
+        return new Rook(Color.BLACK, position);
     }
 
     @Override
-    public boolean isValidMove(final Position origin, final Position target) {
-        return origin.isLevel(target) || origin.isPerpendicular(target);
+    public boolean isValidMove(final Position other) {
+        return this.getPosition().isLevel(other) || this.getPosition().isPerpendicular(other);
     }
 }

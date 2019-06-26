@@ -1,16 +1,16 @@
 package chess.domain.rule;
 
-import chess.domain.Rule;
+import chess.domain.Piece;
+import chess.domain.Position;
 
-public class Empty extends Rule {
-    private static Empty INSTANCE = new Empty();
-
-    private Empty() {
-        super(Type.EMPTY);
+public class Empty extends Piece {
+    private Empty(final Position position) {
+        super(Type.EMPTY, Color.EMPTY, position);
     }
 
-    public static Empty getInstance() {
-        return INSTANCE;
+    public static Empty create(final Position position) {
+        return new Empty(position);
     }
 }
+
 

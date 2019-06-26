@@ -1,21 +1,23 @@
 package chess.domain.rule;
 
+import chess.domain.Piece;
 import chess.domain.Position;
-import chess.domain.Rule;
 
-public class Knight extends Rule {
-    private static Knight INSTANCE = new Knight();
-
-    private Knight() {
-        super(Type.KNIGHT);
+public class Knight extends Piece {
+    private Knight(final Color color, final Position position) {
+        super(Type.KNIGHT, color, position);
     }
 
-    public static Knight getInstance() {
-        return INSTANCE;
+    public static Knight createWhite(final Position position) {
+        return new Knight(Color.WHITE, position);
+    }
+
+    public static Knight createBlack(final Position position) {
+        return new Knight(Color.BLACK, position);
     }
 
     @Override
-    public boolean isValidMove(final Position origin, final Position target) {
-        return origin.isMoveAnyWhereSum(target, 3) && origin.isMoveAnyWhereSub(target, 1);
+    public boolean isValidMove(final Position other) {
+        return this.getPosition().isMoveAnyWhereSum(other, 3) && this.getPosition().isMoveAnyWhereSub(other, 1);
     }
 }

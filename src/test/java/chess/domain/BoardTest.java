@@ -15,10 +15,10 @@ public class BoardTest {
 
         Position origin = Position.of("2", "d");
         Position target = Position.of("4", "d");
-        board.action(origin, target);
+        assertTrue(board.action(origin, target));
         origin = Position.of("1", "c");
         target = Position.of("6", "h");
-        board.action(origin, target);
+        assertTrue(board.action(origin, target));
     }
 
     @Test

@@ -1,21 +1,23 @@
 package chess.domain.rule;
 
+import chess.domain.Piece;
 import chess.domain.Position;
-import chess.domain.Rule;
 
-public class Bishop extends Rule {
-    private static Bishop INSTANCE = new Bishop();
-
-    private Bishop() {
-        super(Type.BISHOP);
+public class Bishop extends Piece {
+    private Bishop(final Color color, final Position position) {
+        super(Type.BISHOP, color, position);
     }
 
-    public static Bishop getInstance() {
-        return INSTANCE;
+    public static Bishop createWhite(final Position position) {
+        return new Bishop(Color.WHITE, position);
+    }
+
+    public static Bishop createBlack(final Position position) {
+        return new Bishop(Color.BLACK, position);
     }
 
     @Override
-    public boolean isValidMove(final Position origin, final Position target) {
-        return origin.isDiagonal(target);
+    public boolean isValidMove(final Position other) {
+        return this.getPosition().isDiagonal(other);
     }
 }
