@@ -22,4 +22,14 @@ public class Queen extends Piece {
                 || this.getPosition().isPerpendicular(other)
                 || this.getPosition().isLevel(other);
     }
+
+    @Override
+    protected String getWhiteSymbol() {
+        return "♕";
+    }
+
+    @Override
+    protected String getBlackSymbol() {
+        return "♛";
+    }
 }

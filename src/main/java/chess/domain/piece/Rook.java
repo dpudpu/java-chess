@@ -20,4 +20,14 @@ public class Rook extends Piece {
     public boolean isValidMove(final Position other) {
         return this.getPosition().isLevel(other) || this.getPosition().isPerpendicular(other);
     }
+
+    @Override
+    protected String getWhiteSymbol() {
+        return "♖";
+    }
+
+    @Override
+    protected String getBlackSymbol() {
+        return "♜";
+    }
 }

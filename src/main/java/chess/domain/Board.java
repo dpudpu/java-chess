@@ -13,10 +13,6 @@ public class Board {
         this.map = new TreeMap<>(map);
     }
 
-    boolean isSameColor(final Position origin, Piece.Color color) {
-        return map.get(origin).isSameColor(color);
-    }
-
     boolean action(final Position origin, final Position target) {
         if (hasObstacle(origin, target)) {
             return false;
@@ -30,8 +26,16 @@ public class Board {
         return attack(originPiece, targetPiece);
     }
 
+    private boolean hasObstacle(final Position origin, final Position target) {
+        for (Position route : origin.findRoutes(target)) {
+            if (!map.get(route).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean attack(final Piece origin, final Piece target) {
-        // todo 같은팀 확인
         if (!origin.isValidAttack(target)) {
             return false;
         }
@@ -56,13 +60,8 @@ public class Board {
         map.put(target.getPosition(), origin);
     }
 
-    private boolean hasObstacle(final Position origin, final Position target) {
-        for (Position route : origin.findRoutes(target)) {
-            if (!map.get(route).isEmpty()) {
-                return true;
-            }
-        }
-        return false;
+    boolean isSameColor(final Position origin, Piece.Color color) {
+        return map.get(origin).isSameColor(color);
     }
 
     ScoreCalculator createScoreCalculator() {

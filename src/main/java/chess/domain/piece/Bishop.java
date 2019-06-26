@@ -20,4 +20,14 @@ public class Bishop extends Piece {
     public boolean isValidMove(final Position other) {
         return this.getPosition().isDiagonal(other);
     }
+
+    @Override
+    protected String getWhiteSymbol() {
+        return "♗";
+    }
+
+    @Override
+    protected String getBlackSymbol() {
+        return "♝";
+    }
 }

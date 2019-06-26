@@ -11,6 +11,16 @@ public class Empty extends Piece {
     public static Empty create(final Position position) {
         return new Empty(position);
     }
+
+    @Override
+    protected String getWhiteSymbol() {
+        return " ";
+    }
+
+    @Override
+    protected String getBlackSymbol() {
+        return " ";
+    }
 }
 
 

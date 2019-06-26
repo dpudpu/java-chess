@@ -30,4 +30,14 @@ public class King extends Piece {
         return this.getPosition().isMoveAnyWhereSum(other, 2)
                 && this.getPosition().isMoveAnyWhereSub(other, 0);
     }
+
+    @Override
+    protected String getWhiteSymbol() {
+        return "♔";
+    }
+
+    @Override
+    protected String getBlackSymbol() {
+        return "♚";
+    }
 }

@@ -5,10 +5,13 @@ import chess.domain.Position;
 import chess.domain.Row;
 
 public class Pawn extends Piece {
+    private static final int SECOND_BLACK_DISTANCE = -1;
+    private static final int FIRST_BLACK_DISTANCE = -2;
+    private static final int FIRST_WHITE_DISTANCE = 2;
+    private static final int SECOND_WHITE_DISTANCE = 1;
+    private static final int ZERO_VECTOR = 0;
     private static final Row STARTING_WHITE_ROW = Row.from(2);
     private static final Row STARTING_BLACK_ROW = Row.from(7);
-
-    private static final int ZERO_VECTOR = 0;
 
     Pawn(final Color color, final Position position) {
         super(Type.PAWN, color, position);
@@ -36,12 +39,11 @@ public class Pawn extends Piece {
         return getDistance() >= vector && vector > ZERO_VECTOR;
     }
 
-    //TODO
     private int getDistance() {
         if (isWhite()) {
-            return getPosition().isSameRow(STARTING_WHITE_ROW) ? 2 : 1;
+            return getPosition().isSameRow(STARTING_WHITE_ROW) ? FIRST_WHITE_DISTANCE : SECOND_WHITE_DISTANCE;
         }
-        return getPosition().isSameRow(STARTING_BLACK_ROW) ? -2 : -1;
+        return getPosition().isSameRow(STARTING_BLACK_ROW) ? FIRST_BLACK_DISTANCE : SECOND_BLACK_DISTANCE;
     }
 
     @Override
@@ -55,5 +57,15 @@ public class Pawn extends Piece {
 
     private boolean isSameSign(final int vector) {
         return Integer.compare(0, getDistance()) == Integer.compare(0, vector);
+    }
+
+    @Override
+    protected String getWhiteSymbol() {
+        return "♙";
+    }
+
+    @Override
+    protected String getBlackSymbol() {
+        return "♟";
     }
 }

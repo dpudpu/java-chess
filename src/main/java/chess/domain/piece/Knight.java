@@ -20,4 +20,14 @@ public class Knight extends Piece {
     public boolean isValidMove(final Position other) {
         return this.getPosition().isMoveAnyWhereSum(other, 3) && this.getPosition().isMoveAnyWhereSub(other, 1);
     }
+
+    @Override
+    protected String getWhiteSymbol() {
+        return "♘";
+    }
+
+    @Override
+    protected String getBlackSymbol() {
+        return "♞";
+    }
 }

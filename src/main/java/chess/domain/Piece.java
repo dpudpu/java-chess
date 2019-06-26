@@ -25,14 +25,6 @@ public abstract class Piece {
         return isValidMove(other);
     }
 
-    public double getScore() {
-        return this.type.score;
-    }
-
-    public String getName() {
-        return this.type.name;
-    }
-
     public boolean isSameType(Type other) {
         return this.type == other;
     }
@@ -45,12 +37,36 @@ public abstract class Piece {
         return this.color == Color.BLACK;
     }
 
-    public boolean isSameColor(Color other) {
+    boolean isSameColor(Color other) {
         return this.color == other;
     }
 
-    public Type getType() {
-        return type;
+    boolean isEmpty() {
+        return this.type == Type.EMPTY;
+    }
+
+    boolean isKing() {
+        return this.type == Type.KING;
+    }
+
+    boolean isPawn() {
+        return this.type == Type.PAWN;
+    }
+
+    boolean isSameColumn(final Column other) {
+        return this.position.isSameColumn(other);
+    }
+
+    void move(final Position position) {
+        this.position = position;
+    }
+
+    double getScore() {
+        return this.type.score;
+    }
+
+    public String getName() {
+        return this.type.name;
     }
 
     public Color getColor() {
@@ -61,83 +77,13 @@ public abstract class Piece {
         return position;
     }
 
-    //
-//    static Piece empty(final Position position) {
-//        return new Piece(position, Color.EMPTY, Empty.getInstance());
-//    }
-//
-//    boolean isValidAttack(final Piece other) {
-//        return !isSameColor(other) && piece.isValidAttack(this.position, other.position);
-//    }
-//
-//    private boolean isSameColor(final Piece other) {
-//        return this.color == other.color;
-//    }
-//
-//    boolean isSameColor(final Color other) {
-//        return color == other;
-//    }
-//
-    boolean isSameColumn(final Column other) {
-        return this.position.isSameColumn(other);
-    }
-
-    //
-//    public boolean isValidMove(final Piece other) {
-//        return piece.isValidMove(this.position, other.position);
-//    }
-//
-//    boolean isEmpty() {
-//        return Color.EMPTY == color;
-//    }
-//
-//    boolean isPawn() {
-//        return this.piece.isSameType(Rule.Type.PAWN);
-//    }
-//
-//    boolean isKing() {
-//        return this.piece.isSameType(Rule.Type.KING);
-//    }
-//
-//    boolean isSameType(final Rule.Type other) {
-//        return piece.isSameType(other);
-//    }
-//
-//    Piece get(final Position position) {
-//        Rule piece = this.piece;
-//        piece = getSecondPawnIfFirst(piece);
-//        return Piece.of(position, this.color, piece);
-//    }
-//
-//    private Rule getSecondPawnIfFirst(Rule piece) {
-//        if (this.piece == Pawn.FIRST_BOTTOM) {
-//            piece = Pawn.SECOND_BOTTOM;
-//        }
-//        if (this.piece == Pawn.FIRST_TOP) {
-//            piece = Pawn.SECOND_TOP;
-//        }
-//        return piece;
-//    }
-//
-//    double getScore() {
-//        return piece.getScore();
-//    }
-//
     public String getSymbol() {
-        return PieceSymbol.getSymbol(this);
-    }
-//
-//    public Position getPosition() {
-//        return position;
-//    }
-
-    public boolean isEmpty() {
-        return this.type == Type.EMPTY;
+        return this.color == Color.BLACK ? getBlackSymbol() : getWhiteSymbol();
     }
 
-    public boolean isKing() {
-        return this.type == Type.KING;
-    }
+    protected abstract String getWhiteSymbol();
+
+    protected abstract String getBlackSymbol();
 
     @Override
     public boolean equals(final Object o) {
@@ -161,14 +107,6 @@ public abstract class Piece {
                 ", color=" + color +
                 ", position=" + position +
                 '}';
-    }
-
-    public boolean isPawn() {
-        return this.type == Type.PAWN;
-    }
-
-    public void move(final Position position) {
-        this.position = position;
     }
 
     public enum Color {
