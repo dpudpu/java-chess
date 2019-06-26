@@ -33,7 +33,7 @@ public class CommandDao {
     }
 
     public List<CommandDto> findByRoomId(final long roomId) {
-        String sql = "SELECT * FROM command WHERE room_id = ? ORDER BY turn";
+        String sql = "SELECT origin, target, turn FROM command WHERE room_id = ? ORDER BY turn";
         List<Object> params = Collections.singletonList(roomId);
 
         return jdbcTemplate.executeQuery(sql, params, rs -> {

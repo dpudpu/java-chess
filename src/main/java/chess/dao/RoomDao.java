@@ -18,12 +18,12 @@ public class RoomDao {
     }
 
     public int add() {
-        String sql = "INSERT INTO room () VALUES()";
+        String sql = "INSERT INTO room (status) VALUES('PLAYING')";
         return jdbcTemplate.executeUpdate(sql);
     }
 
     public Optional<RoomDto> findById(final long id) {
-        String sql = "SELECT * FROM room WHERE id = ?";
+        String sql = "SELECT id, status, winner FROM room WHERE id = ?";
         List<Object> params = Collections.singletonList(id);
 
         RoomDto roomDto = jdbcTemplate.executeQuery(sql, params, rs -> {
@@ -41,7 +41,7 @@ public class RoomDao {
     }
 
     public List<RoomDto> findAllByStatus(final String status) {
-        String sql = "SELECT * FROM room WHERE status = ?";
+        String sql = "SELECT id, status, winner FROM room WHERE status = ?";
         List<Object> params = Collections.singletonList(status);
 
         return jdbcTemplate.executeQuery(sql, params, rs -> {
