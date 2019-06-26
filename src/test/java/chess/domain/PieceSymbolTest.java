@@ -1,7 +1,7 @@
 package chess.domain;
 
-import chess.domain.rule.Empty;
-import chess.domain.rule.Rook;
+import chess.domain.piece.Empty;
+import chess.domain.piece.Rook;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

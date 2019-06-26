@@ -1,6 +1,6 @@
 package chess.domain;
 
-import chess.domain.rule.Pawn;
+import chess.domain.piece.Pawn;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

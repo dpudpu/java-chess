@@ -67,7 +67,7 @@ public abstract class Piece {
 //    }
 //
 //    boolean isValidAttack(final Piece other) {
-//        return !isSameColor(other) && rule.isValidAttack(this.position, other.position);
+//        return !isSameColor(other) && piece.isValidAttack(this.position, other.position);
 //    }
 //
 //    private boolean isSameColor(final Piece other) {
@@ -84,7 +84,7 @@ public abstract class Piece {
 
     //
 //    public boolean isValidMove(final Piece other) {
-//        return rule.isValidMove(this.position, other.position);
+//        return piece.isValidMove(this.position, other.position);
 //    }
 //
 //    boolean isEmpty() {
@@ -92,35 +92,35 @@ public abstract class Piece {
 //    }
 //
 //    boolean isPawn() {
-//        return this.rule.isSameType(Rule.Type.PAWN);
+//        return this.piece.isSameType(Rule.Type.PAWN);
 //    }
 //
 //    boolean isKing() {
-//        return this.rule.isSameType(Rule.Type.KING);
+//        return this.piece.isSameType(Rule.Type.KING);
 //    }
 //
 //    boolean isSameType(final Rule.Type other) {
-//        return rule.isSameType(other);
+//        return piece.isSameType(other);
 //    }
 //
 //    Piece get(final Position position) {
-//        Rule rule = this.rule;
-//        rule = getSecondPawnIfFirst(rule);
-//        return Piece.of(position, this.color, rule);
+//        Rule piece = this.piece;
+//        piece = getSecondPawnIfFirst(piece);
+//        return Piece.of(position, this.color, piece);
 //    }
 //
-//    private Rule getSecondPawnIfFirst(Rule rule) {
-//        if (this.rule == Pawn.FIRST_BOTTOM) {
-//            rule = Pawn.SECOND_BOTTOM;
+//    private Rule getSecondPawnIfFirst(Rule piece) {
+//        if (this.piece == Pawn.FIRST_BOTTOM) {
+//            piece = Pawn.SECOND_BOTTOM;
 //        }
-//        if (this.rule == Pawn.FIRST_TOP) {
-//            rule = Pawn.SECOND_TOP;
+//        if (this.piece == Pawn.FIRST_TOP) {
+//            piece = Pawn.SECOND_TOP;
 //        }
-//        return rule;
+//        return piece;
 //    }
 //
 //    double getScore() {
-//        return rule.getScore();
+//        return piece.getScore();
 //    }
 //
     public String getSymbol() {

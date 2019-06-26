@@ -1,9 +1,7 @@
-package chess.domain.RuleImpl;
+package chess.domain.piece;
 
 import chess.domain.Piece;
 import chess.domain.Position;
-import chess.domain.rule.Pawn;
-import chess.domain.rule.Rook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package chess.domain;
 
-import chess.domain.rule.Empty;
+import chess.domain.piece.Empty;
 import chess.exception.DiedKingException;
 
 import java.util.*;
