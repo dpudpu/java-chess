@@ -12,20 +12,23 @@ public class TableCreator {
     public static final String SRC_MAIN_RESOURCES_SCHEMA_SQL = "src/main/resources/schema.sql";
     private static final Logger LOGGER = LoggerFactory.getLogger(TableCreator.class);
     private static final String SEMICOLON_DELIMITER = ";";
+    private static TableCreator INSTANCE = null;
 
-    private static boolean flag = false;
     private DbConnector dbConnector;
 
-    public TableCreator(final DbConnector dbConnector) {
+    private TableCreator(final DbConnector dbConnector) throws Exception {
         this.dbConnector = dbConnector;
+        create();
     }
 
-    public void create() throws Exception {
-        if (flag) {
-            return;
+    public static TableCreator create(final DbConnector dbConnector) throws Exception {
+        if(INSTANCE== null){
+            INSTANCE = new TableCreator(dbConnector);
         }
-        flag = true;
+        return INSTANCE;
+    }
 
+    private void create() throws Exception {
         File file = new File(SRC_MAIN_RESOURCES_SCHEMA_SQL);
         FileInputStream fis = new FileInputStream(file);
 
